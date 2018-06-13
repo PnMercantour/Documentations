@@ -2,7 +2,7 @@
 
 Ce guide montre une méthode d'installation de [Lizmap](https://www.3liz.com/lizmap.html) sur un serveur Debian9 (Stretch) en utilisant un serveur web Nginx et PHP-FPM.
 
-La majorité des commandes faites par la suite s'effectue en root ou en utilisant `sudo`.
+La majorité des commandes faites par la suite s'effectuent en root ou en utilisant `sudo`.
 
 ## Installation des paquets ##
 ### Nginx et PHP-FPM ###
@@ -69,12 +69,12 @@ Si l'on veut activer le répertoire de démo, on ajoute à `localconfig.ini.php`
 	[modules]
 	lizmap.installparam=demo
 
-On donne les droits d'accès au scripts afin que PHP puisse écrire des fichiers temporaires:
+On donne les droits d'accès au script afin que PHP puisse écrire des fichiers temporaires:
 
 	cd ../../..
 	lizmap/install/set_rights.sh www-data www-data
 
-On peut alors lancer l'installeur
+On peut alors lancer l'installeur:
 
 	php lizmap/install/installer.php
 	
@@ -171,7 +171,7 @@ Et écrire à l'intérieur:
 		}
 	}
 
-Il faut ensuite créer un lien entre la où sont stockés nos 2 fichiers et le dossier `sites-enabled`:
+Il faut ensuite créer un lien symbolique entre `sites-available` et `sites-enabled`:
 
 	rm /etc/nginx/sites-enabled/default
 	ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
@@ -183,19 +183,19 @@ Et recharger la configuration de Nginx:
 
 ## Test ##
 
-Si l'installation de Lizmap et des paquets ainsi que les configurations se sont bien déroulées, l'url [localhost/lm](localhost/lm) devrai afficher la page d'accueil de Lizmap.
+Si l'installation de Lizmap, des paquets et des configurations se sont bien déroulées, l'URL [localhost/lm](localhost/lm) devrait afficher la page d'accueil de Lizmap.
 
-Il est également possible de tester si QGIS Server fonctionne via [http://127.0.0.1:8200/qgis_218](http://127.0.0.1:8200/qgis_218). Ce qui devrai renvoyer un fichier XML.
+Il est également possible de tester si QGIS Server fonctionne via [http://127.0.0.1:8200/qgis_218](http://127.0.0.1:8200/qgis_218). Ce qui devrait renvoyer un fichier XML.
 
 ## Configuration de Lizmap ##
 
-Dernière étape, configurer Lizmap pour qu'il puisse afficher les différents projet cartographique.
+Dernière étape, configurer Lizmap pour qu'il puisse afficher les différents projets cartographiques.
 
-Pour cela, se connecter dans Lizmap (admin/admin par défaut) et dans l'ongelt `Configuration Lizmap`, modifier la version de QGIS Server de `≤ 2.14` vers `≥ 2.18`. Et remplacer l'URL du serveur WMS par `http://localhost:8200/qgis_218`.
+Pour cela, se connecter dans Lizmap (admin/admin par défaut) et dans l'onglet `Configuration Lizmap`, modifier la version de QGIS Server de `≤ 2.14` vers `≥ 2.18`. Et remplacer l'URL du serveur WMS par `http://localhost:8200/qgis_218`.
 
 Si à l'enregistrement des paramètres, `500 - internal server error` apparait, il faut refaire:
 	
 	cd /var/www/mylizmap/
 	lizmap/install/set_rights.sh www-data www-data
 	
-Et si besoin, redémarrer Nginx.
+Et si besoin, redémarrer `Nginx`.
