@@ -38,3 +38,18 @@ Une fois la VM démarré, il faut récupérer l'adresse IP de la machine en exé
 Et récupérer l'adresse IP en `192.168.xxx.xxx`.
 	
 Dans le navigateur de sa machine hôte, il sera alors possible d'accéder au site web contenu sur la VM. Pour Lizmap par exemple, `192.168.xxx.xxx/lm`.
+
+A noter : A la suite de cette manip, la VM ne pourra plus accéder à internet. Il faudra rebasculer sur la configuration réseau `NAT` pour reconnecter la VM à internet.
+
+## Utilisation d'un dossier partagé hôte/invité ##
+
+Afin de pouvoir utiliser des fichiers de sa machine hôte (Windows dans notre cas) vers la machine invité (notre VM Debian pour nous), il faut configurer un `Dossier partagé`.
+
+Pour cela, avant de démarrer notre VM, dans ses `Configuration`, onglet `Dossiers partagés`, il faut ajouter un `Dossiers permanents` avec `Montage autoamtique` et `Configuration permanente`.
+
+Une fois notre VM démarré, dans un terminal en `root` ou via `sudo` :
+
+	usermod -a -G vboxsf mon_utilisateur
+	mount -t vboxsf monDossierPartage /media/sf_monDossierPartage
+
+Dans les `Périphériques` de votre machine invité, vous aurez alors un nouveau dossier qui sera synchronisé avec votre machine hôte.
